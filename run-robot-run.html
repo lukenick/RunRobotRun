@@ -45,6 +45,16 @@
 	}
 	
 	function update(){
-		// Empty for now. But it will do things later!
+		// Still does nothing. Be patient!
+	}
+	
+	window.addEventListener('keyup',this.check,false); // keyup is only happen on release, keydown is happen when you hold
+	function check(e) {
+		var code = e.keyCode;
+		if (code == 38) { 			//Up arrow pressed
+			robotY -= 5;
+		} else if (code == 40) { 	//Down arrow pressed
+			robotY += 5;
+		}
 	}
 </script>
