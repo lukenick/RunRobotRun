@@ -21,7 +21,7 @@
 	var tinHeight = 64;
 	
 	var gravity = 1;
-	
+	var isGameRunning = true;
 	// When the HTML page loads, find the canvas and set some settings
 	window.onload = function() {
 		canvas = document.getElementById('gameCanvas');
@@ -31,9 +31,12 @@
 		setInterval(mainLoop, 1000 / 60); // The main loop runs everything inside it sixty times every second.	
 	}
 
+
 	function mainLoop(){
-		draw();
-		update();
+		if (isGameRunning) {
+			draw();
+			update();
+		}
 	}
 	
 	function draw(){
@@ -66,17 +69,50 @@
 			robotVertSpeed = 0;
 		}
 		
-	}
-	
-	window.addEventListener('keyup',this.check,false); // keyup is only happen on release, keydown is happen when you hold
-	function check(e) {
-		var code = e.keyCode;
-		if (code == 38) { 			//Up arrow pressed
-			robotVertSpeed = -20;
-		} else if (code == 40) { 	//Down arrow pressed
-			// Nothing happens now
+		// Check for robot/tin collision
+		if ( detectCollision(robotX, robotY, robotWidth, robotHeight, tinX, tinY, tinWidth, tinHeight) ){
+			isGameRunning = false;
 		}
 	}
 	
+	window.addEventListener('keyup',this.check,false); // keyup is only happen on release, keydown is happen when you hold
+		function check(e) {
+			var code = e.keyCode;
+			if (code == 38) { 			//Up arrow pressed
+				robotVertSpeed = -20;
+			} else if (code == 40) { 	//Down arrow pressed
+				// Nothing happens now
+			}
+		}
 	
+	function detectCollision(ax, ay, aw, ah, bx, by, bw, bh){
+	// Takes details of two objects as parameters and returns true or false whether they collide
+	// IMPORTANT object A needs to be the smaller object  (unless they are the same size)
+	// @author L Nickholds
+	// @lastModified 15/07/2023
+	// @param	ax	(int)	- The x coordinate of object A
+	// @param	ay	(int)	- The y coordinate of object A
+	// @param	aw	(int)	- The width of object A
+	// @param	ah	(int)	- The height of object A
+	// @param	bx	(int)	- The x coordinate of object B
+	// @param	by	(int)	- The y coordinate of object B
+	// @param	bw	(int)	- The width of object B
+	// @param	bh	(int)	- The height of object B
+	// @return     (boolean)- true if there is a collision, false if not
+		if (ax >= bx && ax <= bx+bw && ay >= by && ay <= by + by+bh) {
+			return true;
+		}
+		if (ax+aw >= bx && ax+aw  <= bx+bw && ay >= by && ay <= by + by+bh) {
+			return true;
+		}
+		if (ax >= bx && ax <= bx+bw && ay+ah >= by && ay <= by + by+bh) {
+			return true;
+		}
+		if (ax+aw  >= bx && ax+aw  <= bx+bw && ay+ah >= by && ay <= by + by+bh) {
+			return true;
+		}
+		console.log(bx + " " + ax + " " + (bx+bw));
+
+		return false
+	}
 </script>
