@@ -1,1 +1,26 @@
 <canvas id="gameCanvas" width="800" height="600" style="border: 3px solid black;"></canvas>
+
+<script>
+	// Load assets
+	var robo = new Image();
+	robo.src = "robot.png";
+	var tin = new Image();
+	tin.src = "tin.png";
+	
+	// When the HTML page loads, find the canvas and set some settings
+	window.onload = function() {
+		canvas = document.getElementById('gameCanvas');
+		canvasContext = canvas.getContext('2d');
+		canvasContext.imageSmoothingEnabled = false; // Make images appear pixelated not blurred
+		
+		// Draw background
+		canvasContext.fillStyle = "blue";
+		canvasContext.fillRect(0, 0, 800, 500);
+		canvasContext.fillStyle = "green";
+		canvasContext.fillRect(0, 500, 800, 600);
+		
+		// Draw characters
+		canvasContext.drawImage(robo, 50, 400, 64, 128);
+		canvasContext.drawImage(tin, 550, 464, 48, 64);
+	}
+</script>
