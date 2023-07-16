@@ -13,10 +13,14 @@
 	var robotWidth = 64;
 	var robotHeight = 128;
 	
+	var robotVertSpeed = 0
+	
 	var tinX = 600;
 	var tinY = 400+64;
 	var tinWidth = 64;
 	var tinHeight = 64;
+	
+	var gravity = 1;
 	
 	// When the HTML page loads, find the canvas and set some settings
 	window.onload = function() {
@@ -50,15 +54,29 @@
 		if (tinX <-100){
 			tinX = 900;
 		}
+		
+		
+		// Move robot vertically if need be
+		robotVertSpeed += gravity;
+		
+		robotY += robotVertSpeed;
+		
+		if (robotY > 400) {
+			robotY = 400;
+			robotVertSpeed = 0;
+		}
+		
 	}
 	
 	window.addEventListener('keyup',this.check,false); // keyup is only happen on release, keydown is happen when you hold
 	function check(e) {
 		var code = e.keyCode;
 		if (code == 38) { 			//Up arrow pressed
-			robotY -= 5;
+			robotVertSpeed = -20;
 		} else if (code == 40) { 	//Down arrow pressed
-			robotY += 5;
+			// Nothing happens now
 		}
-	}	
+	}
+	
+	
 </script>
