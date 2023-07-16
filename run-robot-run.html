@@ -45,7 +45,11 @@
 	}
 	
 	function update(){
-		// Still does nothing. Be patient!
+		// Update tin's position
+		tinX -= 1;
+		if (tinX <-100){
+			tinX = 900;
+		}
 	}
 	
 	window.addEventListener('keyup',this.check,false); // keyup is only happen on release, keydown is happen when you hold
@@ -56,5 +60,5 @@
 		} else if (code == 40) { 	//Down arrow pressed
 			robotY += 5;
 		}
-	}
+	}	
 </script>
