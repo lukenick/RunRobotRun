@@ -7,12 +7,32 @@
 	var tin = new Image();
 	tin.src = "tin.png";
 	
+	// Set variables
+	var robotX = 50;	// X and Y are measured from top left corner
+	var robotY = 400;
+	var robotWidth = 64;
+	var robotHeight = 128;
+	
+	var tinX = 600;
+	var tinY = 400+64;
+	var tinWidth = 64;
+	var tinHeight = 64;
+	
 	// When the HTML page loads, find the canvas and set some settings
 	window.onload = function() {
 		canvas = document.getElementById('gameCanvas');
 		canvasContext = canvas.getContext('2d');
 		canvasContext.imageSmoothingEnabled = false; // Make images appear pixelated not blurred
 		
+		setInterval(mainLoop, 1000 / 60); // The main loop runs everything inside it sixty times every second.	
+	}
+
+	function mainLoop(){
+		draw();
+		update();
+	}
+	
+	function draw(){
 		// Draw background
 		canvasContext.fillStyle = "blue";
 		canvasContext.fillRect(0, 0, 800, 500);
@@ -20,7 +40,11 @@
 		canvasContext.fillRect(0, 500, 800, 600);
 		
 		// Draw characters
-		canvasContext.drawImage(robo, 50, 400, 64, 128);
-		canvasContext.drawImage(tin, 550, 464, 48, 64);
+		canvasContext.drawImage(robo, robotX, robotY, robotWidth, robotHeight);
+		canvasContext.drawImage(tin, tinX, tinY, tinWidth, tinHeight);
+	}
+	
+	function update(){
+		// Empty for now. But it will do things later!
 	}
 </script>
